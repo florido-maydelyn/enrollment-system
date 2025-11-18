@@ -1,0 +1,43 @@
+a.text-decoration-none:hover h5 {
+  color: #fd0d0d;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+.navbar {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #dc3545;
+}
+
+.navbar-brand {
+    color: #dc3545 !important;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: #dc3545 !important;
+}
+
+.card {
+    background-color: #2c2c2c !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #dc3545 !important;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 82, 82, 0.4);
+    border-color: #ff4d4d !important;
+}
+
+.card i {
+    color: #dc3545 !important;
+}
+
+.text-secondary {
+    color: #888888 !important;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Room Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style/course.css">
+</head>
+<body class="bg-dark text-light">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-semibold" href="#">Academic Management</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+
+          <!-- Back to Dashboard Button -->
+          <li class="nav-item me-3">
+            <a href="../dashboard.html" class="btn btn-outline-info fw-semibold">
+              ← Back to Dashboard
+            </a>
+          </li>
+
+          <!-- Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="featuresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Features
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark bg-secondary">
+              <li><a class="dropdown-item" href="department.html">Department</a></li>
+              <li><a class="dropdown-item" href="enrollment.html">Enrollment</a></li>
+              <li><a class="dropdown-item" href="instructor.html">Instructor</a></li>
+              <li><a class="dropdown-item" href="program.html">Program</a></li>
+              <li><a class="dropdown-item active bg-info text-dark fw-bold" href="room.html">Room</a></li>
+              <li><a class="dropdown-item" href="section.html">Section</a></li>
+              <li><a class="dropdown-item" href="student.html">Student</a></li>
+              <li><a class="dropdown-item" href="term.html">Term</a></li>
+              <li><a class="dropdown-item" href="course.html">Course</a></li>
+              <li><a class="dropdown-item" href="course_prerequisite.html">Course Prerequisites</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-container container-fluid mt-5">
+    <h2 class="mb-4 text-center">Room Management</h2>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+      <div class="d-flex align-items-center gap-2">
+        <input type="text" id="searchBox" class="form-control" style="width: 700px;" placeholder="Search by building or room code">
+        <button class="btn btn-primary" onclick="searchRoom()">Search</button>
+        <button class="btn btn-secondary" onclick="showAllRooms()">Show All</button>
+      </div>
+
+      <div class="position-relative d-flex gap-2">
+        <button class="btn btn-primary" onclick="openAddRoomModal()">Add Room</button>
+        <button type="button" class="btn btn-success" onclick="toggleExportMenu()">Export ▼</button>
+        <div id="exportMenu" class="dropdown-menu p-2">
+          <a href="#" class="dropdown-item text-dark" onclick="exportData('excel');return false;">Excel</a>
+          <a href="#" class="dropdown-item text-dark" onclick="exportData('pdf');return false;">PDF</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-dark table-hover align-middle" id="roomTable">
+      <thead>
+        <tr>
+          <th data-key="building" onclick="sortTableBy('building')">Building</th>
+          <th data-key="room_code" onclick="sortTableBy('room_code')">Room Code</th>
+          <th data-key="capacity" onclick="sortTableBy('capacity')">Capacity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Add/Edit Room Modal -->
+  <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-secondary text-light">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="roomModalLabel">Add Room</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="roomForm" class="row g-3">
+            <input type="hidden" id="room_id" name="room_id">
+
+            <div class="col-12">
+              <label class="form-label">Building</label>
+              <input type="text" id="building" name="building" class="form-control" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Room Code</label>
+              <input type="text" id="room_code" name="room_code" class="form-control" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Capacity</label>
+              <input type="number" id="capacity" name="capacity" class="form-control" min="1" required>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary" id="cancelRoomBtn">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveRoomBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../script/room.js"></script>
+</body>
+</html>
