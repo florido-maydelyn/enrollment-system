@@ -8,7 +8,6 @@
 </head>
 <body class="bg-dark text-light">
 
-  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand fw-semibold" href="#">Academic Management</a>
@@ -56,7 +55,7 @@
     <h2 class="mb-4 text-center">Enrollment Management</h2>
 
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items_center gap-2">
         <input type="text" id="searchBox" class="form-control" style="width: 600px;" placeholder="Search by student name or section code">
         <button class="btn btn-primary" onclick="searchEnrollment()">Search</button>
         <button class="btn btn-secondary" onclick="loadEnrollments()">Show All</button>
@@ -73,7 +72,6 @@
     </div>
 
 
-    <!-- TABLE -->
     <table class="table table-dark table-hover align-middle" id="enrollmentTable">
       <thead>
         <tr>
@@ -95,7 +93,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content bg-secondary text-light">
         <div class="modal-header border-0">
-          <h5 class="modal-title" id="enrollmentModalLabel">Add Enrollment</h5>
+          <h5 class="modal-title" id="enrollmentModalLabel">Enroll Student</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
 
@@ -103,40 +101,69 @@
           <form id="enrollmentForm" class="row g-3">
             <input type="hidden" id="enrollment_id" name="enrollment_id">
 
-            <div class="col-md-6">
+            <div class="col-12">
               <label class="form-label">Student</label>
               <select id="student_id" name="student_id" class="form-select" required></select>
             </div>
 
-            <div class="col-md-6">
-              <label class="form-label">Section</label>
-              <select id="section_id" name="section_id" class="form-select" required></select>
+            <div class="col-12">
+                <hr>
+                <div id="loadingSpinner" style="display: none; text-align: center;">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-4">
-              <label class="form-label">Date Enrolled</label>
-              <input type="date" id="date_enrolled" name="date_enrolled" class="form-control" required>
+            <div id="regularFlowContainer" class="row g-3" style="display: none;">
+              <div class="col-md-6">
+                <label class="form-label">Term</label>
+                <select id="block_term_id" name="term_id" class="form-select" required></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Designated Block Code</label>
+                <input type="text" id="block_section_code" name="section_code" class="form-control" readonly>
+              </div>
+              <div class="col-12">
+                <h6>Courses in this Block:</h6>
+                <div id="block_course_list" class="bg-dark p-3 rounded" style="min-height: 150px; max-height: 300px; overflow-y: auto;">
+                  <small class="text-muted">Select a term to see courses.</small>
+                </div>
+              </div>
             </div>
 
-            <div class="col-md-4">
-              <label class="form-label">Status</label>
-              <input type="text" id="status" name="status" class="form-control" placeholder="e.g. Enrolled, Dropped" required>
+            <div id="irregularFlowContainer" class="row g-3" style="display: none;">
+              <div class="col-md-12">
+                <label class="form-label">Section</label>
+                <select id="section_id" name="section_id" class="form-select" required></select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Date Enrolled</label>
+                <input type="date" id="date_enrolled" name="date_enrolled" class="form-control" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Status</label>
+                <input type="text" id="status" name="status" class="form-control" placeholder="e.g. Enrolled, Dropped" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Letter Grade</label>
+                <input type="text" id="letter_grade" name="letter_grade" class="form-control" placeholder="A, B+, C" maxlength="2">
+              </div>
             </div>
 
-            <div class="col-md-4">
-              <label class="form-label">Letter Grade</label>
-              <input type="text" id="letter_grade" name="letter_grade" class="form-control" placeholder="A, B+, C" maxlength="2">
-            </div>
           </form>
         </div>
 
         <div class="modal-footer border-0">
-          <button type="button" class="btn btn-secondary" id="cancelEnrollmentBtn">Cancel</button>
-          <button type="button" class="btn btn-primary" id="saveEnrollmentBtn">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          
+          <button type="button" class="btn btn-info" id="saveBlockBtn" style="display: none;">Enroll in Block</button>
+          <button type="button" class="btn btn-primary" id="saveIrregularBtn" style="display: none;">Save</button>
         </div>
       </div>
     </div>
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../script/enrollment.js"></script>
